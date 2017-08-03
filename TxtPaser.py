@@ -22,23 +22,35 @@ def process_file(filename):
 
     # load the lines into numpy arrays
     # load Column 0 into x, and Column 2 into y
-    x, y = np.loadtxt(d, delimiter=',', usecols=(0, 2), unpack=True)
+    x, y, z = np.loadtxt(d, delimiter=',', usecols=(2, 3, 4), unpack=True)
 
-    # do some calculation on x and y to get z
-    z = (x + y) / 2
+    begin = np.where(x == 50000)[0]
+    end = np.where(x == 0)[0]
 
-    # get the length of x to use as the horizontal axis
-    t = np.arange(0, len(x))
 
-    plt.plot(t,x)
-    plt.plot(t,y)
-    plt.plot(t,z)
+    print begin, end
+
+    plt.scatter(y[0:begin[0]-1], z[0:begin[0]-1])
+
     plt.xlabel('time (s)')
     plt.ylabel('voltage (mV)')
     plt.title('About as simple as it gets, folks')
     plt.grid(True)
-    plt.savefig(filename + ".png")
+    plt.savefig(filename + "_1.png")
     plt.show()
+
+    for j in range(len(begin)):
+        plt.scatter(x[begin[j]:end[j]], z[begin[j]:end[j]])
+
+    plt.xlabel('time (s)')
+    plt.ylabel('voltage (mV)')
+    plt.title('About as simple as it gets, folks')
+    plt.grid(True)
+    plt.savefig(filename + "_2.png")
+    plt.show()
+
+
+
 
 for path in path_in:
     for root, dirs, files in os.walk(path):
