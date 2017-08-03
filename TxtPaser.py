@@ -3,7 +3,7 @@ import os
 from io import StringIO
 import numpy as np
 import matplotlib.pyplot as plt
-
+import math
 
 path_in = [
     './',
@@ -37,7 +37,10 @@ def process_file(filename):
     plt.title('About as simple as it gets, folks')
     plt.grid(True)
     plt.savefig(filename + "_1.png")
-    plt.show()
+
+
+    for k in range(begin[1], end[1]):
+        z[k] = math.sqrt(z[k])
 
     for j in range(len(begin)):
         plt.scatter(x[begin[j]:end[j]], z[begin[j]:end[j]])
