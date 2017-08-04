@@ -27,9 +27,6 @@ def process_file(filename):
     begin = np.where(x == 50000)[0]
     end = np.where(x == 0)[0]
 
-
-    print begin, end
-
     plt.scatter(y[0:begin[0]-1], z[0:begin[0]-1])
 
     plt.xlabel('time (s)')
@@ -38,12 +35,16 @@ def process_file(filename):
     plt.grid(True)
     plt.savefig(filename + "_1.png")
 
+    plt.figure()
 
-    for k in range(begin[1], end[1]):
-        z[k] = math.sqrt(z[k])
+#    for k in range(begin[1], end[1]):
+#        z[k] = math.sqrt(z[k])
+
+    color_list = ['r', 'g', 'b', 'c', 'm', 'y', 'k']
+    marker_list = ['o', '1', '2', '3', '4', '8', 's', 'p', '*', 'h', 'v', '^', '<', '>']
 
     for j in range(len(begin)):
-        plt.scatter(x[begin[j]:end[j]], z[begin[j]:end[j]])
+        plt.scatter(x[begin[j]:end[j]], z[begin[j]:end[j]], color=color_list[j%len(color_list)], marker=marker_list[j%len(marker_list)], s=50)
 
     plt.xlabel('time (s)')
     plt.ylabel('voltage (mV)')
